@@ -63,6 +63,54 @@ const FormularioMedicina = () => {
   const [classtempdiag, setClasstempdiag] = useState('');
   const [metmoniglic, setMetmoniglic] = useState('');
   const [marcamodeloglic, setMarcamodeloglic] = useState('');
+  const [estcontroleglic, setEstControleGlic] = useState('');
+  const [metodoadminsulina, setMetodoAdmInsulina] = useState('');
+
+  /* 1- Outras morbidades (doenças) */
+  const [doenca1, setDoenca1] = useState("");
+  const [medicamento1, setMedicamento1] = useState("");
+  const [dose1,setDose1] = useState("");
+
+  const [doenca2, setDoenca2] = useState("");
+  const [medicamento2, setMedicamento2] = useState("");
+  const [dose2,setDose2] = useState("");
+
+  const [doenca3, setDoenca3] = useState("");
+  const [medicamento3, setMedicamento3] = useState("");
+  const [dose3,setDose3] = useState("");
+
+  const [doenca4, setDoenca4] = useState("");
+  const [medicamento4, setMedicamento4] = useState("");
+  const [dose4,setDose4] = useState("");
+
+  const [doenca5, setDoenca5] = useState("");
+  const [medicamento5, setMedicamento5] = useState("");
+  const [dose5,setDose5] = useState("");
+
+  const [sintomas, setSintomas] = useState("");
+
+  /* 3- Estágio maturacional: Escala de TANNER: */
+  const [maturacional, setMaturacional] = useState("");
+
+  /* 4- Estado glicêmico baseado na HbA1c: 
+    Verificar com Eduardo como funciona.
+  */
+
+  /* 5- Administração de insulina atual: 
+    Verificar com Eduardo como funciona.
+  */
+  const [basalnome, setBasalNome] = useState("");
+  const [basalDose1, setBasalDose1] = useState("");
+  const [basalDose2, setBasalDose2] = useState("");
+  const [bolusnome, setBolusNome] = useState("");
+  const [bolusDose1, setBolusDose1] = useState("");
+  const [bolusDose2, setBolusDose2] = useState("");
+
+  /* 6- Fator de sensibilidade a insulina (FS) para BOLUS de insulina: 
+    Verificar com Eduardo
+  */
+  const [fsbolus, setFsBolus] = useState("");
+  const [fhorafsbolus, setFHoraFsBolus] = useState("");
 
   return (
     <div className="home">
@@ -358,6 +406,7 @@ const FormularioMedicina = () => {
               ></textarea>
             </div>
             <div className="dropdown-med-tabela">
+              {/* Verificar com o Eduardo a Tabela de Sintomas*/}
               <DropDownTabelaSintomasMed />
             </div>
             <p className="p-outras-morbidades">
@@ -386,9 +435,11 @@ const FormularioMedicina = () => {
               </div>
             </div>
             <div className="centralizar-imagens">
+              {/* Verificar com o Eduardo a Tabela */}
               <DropDownTabelaImagensMedMasc />
             </div>
             <div className="centralizar-imagens">
+              {/* Verificar com o Eduardo a Tabela */}
               <DropDownTabelaImagensMedFem />
             </div>
             <p className="p-outras-morbidades">
