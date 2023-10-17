@@ -112,6 +112,34 @@ const FormularioMedicina = () => {
   const [fsbolus, setFsBolus] = useState("");
   const [fhorafsbolus, setFHoraFsBolus] = useState("");
 
+  /* 7- Razão de carboidrato insulina (rCHOi): 
+    Verificar com Eduardo
+  */
+  const [Carbobolus, setCarboBolus] = useState("");
+  const [fhoraCarbobolus, setFHoraCarboBolus] = useState("");
+
+  /* PRESCRIÇÃO MÉDICA
+ */
+
+  /* 1- Terapêutica de insulina: 
+    perguntar para o Eduardo
+  */
+
+  /* 2- Fator de sensibilidade a insulina (FS) para BOLUS de insulina baseado na prescição de insulina e ajustes por período: 
+    perguntar para Eduardo
+  */
+  const [fsajustadohora, setfsajustadohora] = useState("");
+  const [inicioFs, setInicioFs] = useState("");
+  const [finalFs, setFinalFs] = useState("");
+
+  /* 3- Razão de carboidrato insulina (rCHOi) para BOLUS de insulina baseado na prescrição de insulina e justes por período:
+   */
+  const [rchoiajustadohora, setrchoiajustadohora] = useState("");
+  const [iniciorchoi, setIniciorchoi] = useState("");
+  const [finalrchoi, setFinalrchoi] = useState("");
+  /* 4- Outras prescrições médicas: */
+  const [outprescr, setOutprescr] = useState("");
+  
   return (
     <div className="home">
       <Navbar />
