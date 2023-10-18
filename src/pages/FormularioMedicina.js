@@ -140,6 +140,88 @@ const FormularioMedicina = () => {
   /* 4- Outras prescrições médicas: */
   const [outprescr, setOutprescr] = useState("");
   
+  /* Tabela Controle Glicemia */
+  /* Dia 1 */
+  /* Cafe da Manhã */
+  const [jejumdia1,setJejumdia1] = useState("");
+  const [duashrdepoisdia1,setDuashrdepoisdia1] = useState("");
+  const [uiInsulinadia1,setuiInsulinadia1] = useState("");
+  /* Almoço */
+  const [jejumAdia1,setJejumAdia1] = useState("");
+  const [duashrdepoisAdia1,setDuashrdepoisAdia1] = useState("");
+  const [uiInsulinaAdia1,setuiInsulinaAdia1] = useState("");
+  /* Cafe da Tarde */
+  const [jejumTdia1,setJejumTdia1] = useState("");
+  const [duashrdepoisTdia1,setDuashrdepoisTdia1] = useState("");
+  const [uiInsulinaTdia1,setuiInsulinaTdia1] = useState("");
+  /* Janta */
+  const [jejumJdia1,setJejumJdia1] = useState("");
+  const [duashrdepoisJdia1,setDuashrdepoisJdia1] = useState("");
+  const [uiInsulinaJdia1,setuiInsulinaJdia1] = useState("");
+  /*OBSERVAÇÕES*/
+  const [Observacaodia1,setObservacaodia1] = useState("");
+
+  /* Dia 2 */
+  /* Cafe da Manhã */
+  const [jejumdia2,setJejumdia2] = useState("");
+  const [duashrdepoisdia2,setDuashrdepoisdia2] = useState("");
+  const [uiInsulinadia2,setuiInsulinadia2] = useState("");
+  /* Almoço */
+  const [jejumAdia2,setJejumAdia2] = useState("");
+  const [duashrdepoisAdia2,setDuashrdepoisAdia2] = useState("");
+  const [uiInsulinaAdia2,setuiInsulinaAdia2] = useState("");
+  /* Cafe da Tarde */
+  const [jejumTdia2,setJejumTdia2] = useState("");
+  const [duashrdepoisTdia2,setDuashrdepoisTdia2] = useState("");
+  const [uiInsulinaTdia2,setuiInsulinaTdia2] = useState("");
+  /* Janta */
+  const [jejumJdia2,setJejumJdia2] = useState("");
+  const [duashrdepoisJdia2,setDuashrdepoisJdia2] = useState("");
+  const [uiInsulinaJdia2,setuiInsulinaJdia2] = useState("");
+  /*OBSERVAÇÕES*/
+  const [Observacaodia2,setObservacaodia2] = useState("");
+
+  /* Dia 3 */
+  /* Cafe da Manhã */
+  const [jejumdia3,setJejumdia3] = useState("");
+  const [duashrdepoisdia3,setDuashrdepoisdia3] = useState("");
+  const [uiInsulinadia3,setuiInsulinadia3] = useState("");
+  /* Almoço */
+  const [jejumAdia3,setJejumAdia3] = useState("");
+  const [duashrdepoisAdia3,setDuashrdepoisAdia3] = useState("");
+  const [uiInsulinaAdia3,setuiInsulinaAdia3] = useState("");
+  /* Cafe da Tarde */
+  const [jejumTdia3,setJejumTdia3] = useState("");
+  const [duashrdepoisTdia3,setDuashrdepoisTdia3] = useState("");
+  const [uiInsulinaTdia3,setuiInsulinaTdia3] = useState("");
+  /* Janta */
+  const [jejumJdia3,setJejumJdia3] = useState("");
+  const [duashrdepoisJdia3,setDuashrdepoisJdia3] = useState("");
+  const [uiInsulinaJdia3,setuiInsulinaJdia3] = useState("");
+  /*OBSERVAÇÕES*/
+  const [Observacaodia3,setObservacaodia3] = useState("");
+
+  /* Dia 4 */
+  /* Cafe da Manhã */
+  const [jejumdia4,setJejumdia4] = useState("");
+  const [duashrdepoisdia4,setDuashrdepoisdia4] = useState("");
+  const [uiInsulinadia4,setuiInsulinadia4] = useState("");
+  /* Almoço */
+  const [jejumAdia4,setJejumAdia4] = useState("");
+  const [duashrdepoisAdia4,setDuashrdepoisAdia4] = useState("");
+  const [uiInsulinaAdia4,setuiInsulinaAdia4] = useState("");
+  /* Cafe da Tarde */
+  const [jejumTdia4,setJejumTdia4] = useState("");
+  const [duashrdepoisTdia4,setDuashrdepoisTdia4] = useState("");
+  const [uiInsulinaTdia4,setuiInsulinaTdia4] = useState("");
+  /* Janta */
+  const [jejumJdia4,setJejumJdia4] = useState("");
+  const [duashrdepoisJdia4,setDuashrdepoisJdia4] = useState("");
+  const [uiInsulinaJdia4,setuiInsulinaJdia4] = useState("");
+  /*OBSERVAÇÕES*/
+  const [Observacaodia4,setObservacaodia4] = useState("");
+
+
   return (
     <div className="home">
       <Navbar />
