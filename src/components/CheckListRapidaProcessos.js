@@ -1,7 +1,44 @@
 import React from "react";
 import "../styles/Processos-css/CheckListRapidoProcessos.css";
+import { useState, useEffect } from "react";
+import { useApi } from "../hooks/useApi";
 
 const CheckListRapidaProcessos = () => {
+  const [searchResults, setSearchResults] = useState([]);
+  const { tabelaPaciente } = useApi();
+  const [id, setID] = useState('');
+  const [nome, setNome] = useState(''); 
+  const [cpf, setCPF] = useState('');
+  const [data_nascimento, setNascimento] = useState('');
+  const [selectsexo, setSelectsexo] = useState('');
+  const [telefone, setTelefone] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const cpfParam = urlParams.get("cpf");
+        const searchTerm = cpfParam;
+  
+        if (searchTerm) {
+          const response = await tabelaPaciente(searchTerm, ["nome", "cpf"]);
+          if (response.length > 0) {
+            setSearchResults(response);
+            setID(response[0].id)
+            setNascimento(response[0].data_nascimento);
+            setSelectsexo(response[0].sexo);
+            setNome(response[0].nome);
+            setTelefone(response[0].telefone);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+
   return (
     <div className="div-check-list-rapida">
       <div className="div-table-check-list-rapida">
@@ -24,13 +61,18 @@ const CheckListRapidaProcessos = () => {
                   <input
                     type={"text"}
                     className="input-nome-paciente-check-list"
+                    value={nome}
+                    onChange={(event) => setNome(event.target.value)}
                   ></input>
                 </div>
                 <div className="cns-telefone-check-list">
-                  <p>CNS:</p>
+                  <p>CNS:</p> {/* Verificar com Eduardo */}
                   <input type={"number"} className="cns-input"></input>
                   <p>Telefone:</p>
-                  <input type={"number"} className="cns-input" placeholder="&#40;__&#41;_____-____"></input>
+                  <input type={"text"} className="cns-input" placeholder="&#40;__&#41;_____-____" 
+                  value={telefone}
+                  onChange={(event) => setTelefone(event.target.value)}
+                  ></input>
                 </div>
               </td>
             </tr>

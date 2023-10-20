@@ -1,8 +1,46 @@
 import React from "react";
 import "../styles/Processos-css/ReceitaInsulinaBasal.css";
 import HospitalBeneficienteLogo from "../assets/hospitalbeneficientelogo.png.png";
+import { useState, useEffect } from "react";
+import { useApi } from "../hooks/useApi";
+
 
 const ReceitaInsulinaBasal = () => {
+  const [searchResults, setSearchResults] = useState([]);
+  const { tabelaPaciente } = useApi();
+  const [id, setID] = useState('');
+  const [nome, setNome] = useState(''); 
+  const [cpf, setCPF] = useState('');
+  const [data_nascimento, setNascimento] = useState('');
+  const [selectsexo, setSelectsexo] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const cpfParam = urlParams.get("cpf");
+        const searchTerm = cpfParam;
+  
+        if (searchTerm) {
+          const response = await tabelaPaciente(searchTerm, ["nome", "cpf"]);
+          if (response.length > 0) {
+            setSearchResults(response);
+            setID(response[0].id)
+            setNascimento(response[0].data_nascimento);
+            setSelectsexo(response[0].sexo);
+            setNome(response[0].nome);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+
+  /* Verificar com eduardo se precisa armazenar a receita */
+
   return (
     <div className="div-1-basal">
       <div className="div-receita-basal">
@@ -34,6 +72,8 @@ const ReceitaInsulinaBasal = () => {
                 type={"text"}
                 className="input-nome-paciente-insulina-basal"
                 placeholder="nome completo do paciente"
+                value={nome}
+                onChange={(event) => setNome(event.target.value)}
               ></input>
             </label>
           </div>
