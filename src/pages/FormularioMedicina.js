@@ -761,6 +761,10 @@ const FormularioMedicina = () => {
   /*OBSERVAÇÕES*/
   const [Observacaodia31,setObservacaodia31] = useState("");
 
+  /* Receita insulinal basal */
+
+  
+
   return (
     <div className="home">
       <Navbar />
