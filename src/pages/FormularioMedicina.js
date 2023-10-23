@@ -10,10 +10,12 @@ import DropDownListaNomesBasal from "../components/DropDownListaNomesBasal";
 import DropDownListaNomesBolus from "../components/DropDownListaNomesBolus";
 import CollapseProcessos from '../components/CollapseProcessos';
 import ButtonSalvarMed from '../components/ButtonSalvarMed';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useApi } from "../hooks/useApi";
+import { AuthContext } from "../contexts/Auth/AuthContext";
 
 const FormularioMedicina = () => {
+  const auth = useContext(AuthContext);
   const [searchResults, setSearchResults] = useState([]);
   const { tabelaPaciente } = useApi();
   const [id, setID] = useState('');
@@ -763,7 +765,11 @@ const FormularioMedicina = () => {
 
   /* Receita insulinal basal */
 
-  
+  /* Medico Responsavel */
+  const [nomeMedico, setNomeMedico] = useState('');
+  const [emailMedico, setEmailMedico] = useState('');
+  const [crm, setCrm] = useState('');
+  const [phonemedico, setPhonemedidco] = useState('')
 
   return (
     <div className="home">
@@ -1620,13 +1626,13 @@ const FormularioMedicina = () => {
                     Nome Completo:
                   </td>
                   <td className="width-nome">
-                    <p></p>
+                    <p>{auth.user?.name}</p>
                   </td>
                   <td className="nome-completo-responsavel-avaliacao">
-                    RA:<p></p>
+                    RA: 
                   </td>
                   <td>
-                    <p></p>
+                    <p>{auth.user?.ra}</p>
                   </td>
                 </tr>
                 <tr>
@@ -1634,13 +1640,13 @@ const FormularioMedicina = () => {
                     Email:
                   </td>
                   <td>
-                    <p></p>
+                    <p>{auth.user?.email}</p>
                   </td>
                   <td className="nome-completo-responsavel-avaliacao">
                     Telefone:
                   </td>
                   <td>
-                    <p></p>
+                    <p>{auth.user?.phone}</p>
                   </td>
                 </tr>
                 <tr>
