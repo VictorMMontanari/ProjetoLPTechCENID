@@ -2,6 +2,16 @@ import React from 'react';
 import ModalAlterarCadastro from "../components/ModalAlterarCadastro";
 
 const DadosResponsavel = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confPassword, setConfPassword] = useState("");
+  const [name, setName] = useState("");
+  const [ra, setRa] = useState("");
+  const [type, setType] = useState("");
+  const [phone, setPhone] = useState("");
+  const [curso, setCurso] = useState("");
+  const [cpf, setCpf] = useState("");
+  
   return (
     <div className='dadosresponsavel'>
         <div className='dadosPaciente'>
