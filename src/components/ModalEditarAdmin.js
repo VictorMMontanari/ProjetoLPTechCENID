@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "../styles/Modal.css";
 import { MdClose } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-export default function Modal() {
+export default function Modal({id}) {
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
@@ -31,9 +32,9 @@ export default function Modal() {
                 <p className="p-deseja-excluir"><strong>Deseja Alterar?</strong></p>
             </div>
             <div className="ModalEnfPaginaPaciente1">
-              <a href="/alteracaoestagiario" className="aAgendarConsultaEnf">
+              <Link /* href="/alteracaoestagiario" */ to={`/alteracaoestagiario?id=${id}`} className="aAgendarConsultaEnf">
                 <h2 className="linkAgendarConsulaPaciente">Sim</h2>
-              </a>
+              </Link>
               <a href="/admin" className="aNovaConsultaEnfPaciente">
                 <h2 className="linkNovaConsultaEnfPaciente">Cancelar</h2>
               </a>
