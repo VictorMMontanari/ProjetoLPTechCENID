@@ -231,7 +231,7 @@ export const Admin = () => {
                       />
                     </button>
                     <button className="icon-excluir">
-                      <ModalEditarAdmin title="Editar" />
+                      <ModalEditarAdmin title="Editar" id={user.id}/>
                     </button>
                   </td>
                 </tr>

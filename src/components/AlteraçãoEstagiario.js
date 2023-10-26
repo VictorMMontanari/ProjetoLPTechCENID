@@ -41,12 +41,28 @@ export const Admin = () => {
   const api = useApi();
 
   const [data, setData] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [id, setID] = useState("");
+
   
   const handleTabela = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const idParam = urlParams.get("id");
+    const searchTerm = idParam;
+
     api.tabela()
       .then((tabelaDataJson) => {
         setData(tabelaDataJson.records);
+        const jsonData = tabelaDataJson.records;
+        if (idParam in jsonData) {
+          setSearchResults(jsonData[idParam])
+          console.log(jsonData[idParam])
+          return jsonData[idParam];
+        } else {
+            return null;
+        }  
       })
+      
       .catch((error) => {
         console.log(error);
     });
@@ -70,7 +86,7 @@ export const Admin = () => {
         </div>
         <div className="informacoes-admin">
           <h3 className="h3-nome-admin">Nome:</h3>
-          <p className="p-input-nome-admin"></p>
+          <p className="p-input-nome-admin">{searchResults.name}</p>
           <h3 className="h3-nome-admin">Email:</h3>
           <p className="p-input-nome-admin"></p>
         </div>
