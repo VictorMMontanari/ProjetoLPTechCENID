@@ -28,7 +28,7 @@ export const Admin = () => {
   const handleRegister = async () => {
     if (password === confPassword) {
       if (email && password && name && ra && type && phone && curso && cpf) {
-        /* const isRegister=  */await auth.register(email, password, name, ra, type, phone, curso, cpf);
+        await auth.update(id, email, password, name, ra, type, phone, curso, cpf);
         window.location.reload();
       } else {
       alert('Todos os campos são obrigatorios')
@@ -56,7 +56,15 @@ export const Admin = () => {
         const jsonData = tabelaDataJson.records;
         if (idParam in jsonData) {
           setSearchResults(jsonData[idParam])
-          console.log(jsonData[idParam])
+          setName(jsonData[idParam].name)
+          setEmail(jsonData[idParam].email)
+          setRa(jsonData[idParam].ra)
+          setCpf(jsonData[idParam].cpf)
+          setCurso(jsonData[idParam].curso)
+          setType(jsonData[idParam].type)
+          setPhone(jsonData[idParam].phone)
+          setID(jsonData[idParam].id)
+          console.log("ID: ", jsonData[idParam].id)
           return jsonData[idParam];
         } else {
             return null;
@@ -88,7 +96,7 @@ export const Admin = () => {
           <h3 className="h3-nome-admin">Nome:</h3>
           <p className="p-input-nome-admin">{searchResults.name}</p>
           <h3 className="h3-nome-admin">Email:</h3>
-          <p className="p-input-nome-admin"></p>
+          <p className="p-input-nome-admin">{searchResults.email}</p>
         </div>
         <div className="cadastro-novo-estagiario">
           <p className="p-recordatorio-alimentar1">CADASTRAR NOVO ESTAGIÁRIO</p>

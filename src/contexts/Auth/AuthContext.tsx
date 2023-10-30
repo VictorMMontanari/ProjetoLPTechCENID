@@ -13,6 +13,7 @@ export type AuthContextType = {
         metodo_monitoramento_glicemia: string, marca_modelo_glicometro_sensor: string, uso_app_glicemia: string, outros_apps: string, nome_responsavel: string, cpf_responsavel: string, rg_responsavel: string, parentesco_responsavel: string, 
         telefone_responsavel: string, ocupacao_responsavel: string, data_nascimento_responsavel: Date, anexar: Blob, auxilio: string, outros_auxilios: string, possui_celular_com_acesso_a_internet: string, idLogin:Number) => Promise<boolean>;
     register: (email: string, password: string, name: string, ra: string, type: string, phone: string, curso: string, cpf: string) => Promise<boolean>;
+    update: (id: Int32Array, email: string, password: string, name: string, ra: string, type: string, phone: string, curso: string, cpf: string) => Promise<boolean>;
     signin: (email: string, password: string) => Promise<boolean>;
     signout: () => void;
 }
