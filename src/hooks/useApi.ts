@@ -36,6 +36,13 @@ export const useApi = () => ({
         const response = await api.post('/register', { email, password, name, ra, type, phone, curso, cpf });
         return response.data;
     },
+    update: async (id: Int32Array, email: string, password: string, name: string, ra: string, type: string, phone: string, curso: string, cpf: string) => {
+        var md5 = require('md5');
+        password = md5(password);
+        const url = `/update/${id}`;
+        const response = await api.put(url, { email, password, name, ra, type, phone, curso, cpf });
+        return response.data;
+      },
     registernovo: async (datecadastro: Date, nome: string, cpfForm: string, cartao_sus: string, rg: string, telefone: string, data_nascimento: Date, email: string, ocupacao: string, 
         sexo: string, endereco: string, municipio: string, numero: string, tipo_atendimento: string, diagnostico: string,
         outras_formas_dm: string, data_diagnostico: Date, gestante: string, semanas_gestacao: Number, amamentando: string, tempo_pos_parto: Number, deficiencia: string, tipo_deficiencia: string, 

@@ -33,6 +33,15 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
         return false;
     }
 
+    const update = async (id: Int32Array, email: string, password: string, name: string, ra: string, type: string, phone: string, curso: string, cpf: string) => {
+        const data = await api.update(id,email, password, name, ra, type, phone, curso, cpf);
+        if (data.users) {
+            setUsers(data.users);
+            return true;
+        }
+        return false;
+    }
+
     const atualizar = async (id: number, nome: string, cpf: string, rg: string, sus: string, DataNascimento: Date, telefone: string, selectsexo: string, endereco: string, numero: string, 
         nome_responsavel: string, cpf_responsavel: string, rg_responsavel: string, parentesco_responsavel: string, telefone_responsavel: string, ocupacao_responsavel: string,
         DataNascimentoResponsavel: Date) => {
@@ -86,7 +95,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ user, signin, signout, register, registernovo, atualizar }}>
+        <AuthContext.Provider value={{ user, signin, signout, register, registernovo, atualizar, update }}>
             {children}
         </AuthContext.Provider>
     );
