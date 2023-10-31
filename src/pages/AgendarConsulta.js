@@ -48,6 +48,11 @@ const AgendarConsulta = () => {
     fetchData();
   }, []);
 
+  const [data,setData] = useState("");
+  const [hora,setHora] = useState("");
+  const [espmed,setEspmed] = useState("");
+  const [obser,setObser] = useState("");
+
   return (
     <div className="home">
       <Navbar />
@@ -117,20 +122,42 @@ const AgendarConsulta = () => {
             <div className="centralizar-agendar-consulta">
               <div>
                 <p className="p-nome-agendar-consulta">Data:</p>
-                <input type={"date"} className="data-agendar-consulta" ></input>
+                <input type={"date"} 
+                className="data-agendar-consulta" 
+                value={data}
+                onChange={(event) => setData(event.target.value)}></input>
               </div>
               <div>
                 <p className="p-nome-agendar-consulta">Horário:</p>
-                <input type={"time"} className="horario-agendar-consulta"></input>
+                <input type={"time"} 
+                className="horario-agendar-consulta"
+                value={hora}
+                onChange={(event) => setHora(event.target.value)}
+                ></input>
               </div>
             </div>
             <div>
               <p className="p-nome-agendar-consulta">Especialidade médica:</p>
-              <DropDownAgendarConsulta />
+              <select
+                className="agendar-consulta-dropdown"
+                value={espmed}
+                onChange={(e) => setEspmed(e.target.value)}
+              >
+                <option value={""}>Selecione a especialidade:</option>
+                <option value={"Medicina"}>Medicina</option>
+                <option value={"enfermagem"}>Enfermagem</option>
+                <option value={"psicologia"}>Psicologia</option>
+                <option value={"nutricao"}>Nutrição</option>
+                <option value={"educacaoFisica"}>Educação Física</option>
+              </select>
             </div>
             <div>
               <p className="p-nome-agendar-consulta">Observações:</p>
-              <textarea className="textarea-agendar-consulta" placeholder="Observações..."></textarea>
+              <textarea 
+              className="textarea-agendar-consulta" 
+              placeholder="Observações..."
+              value={obser}
+              onChange={(event) => setObser(event.target.value)}></textarea>
             </div>
           </div>
         </form>
