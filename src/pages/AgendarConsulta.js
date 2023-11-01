@@ -2,14 +2,17 @@ import React from "react";
 import "../styles/AgendarConsulta.css";
 import Navbar from "../components/Navbar";
 import { HiArrowNarrowLeft } from "react-icons/hi";
-import DropDownAgendarConsulta from "../components/DropDownAgendarConsulta";
+/* import DropDownAgendarConsulta from "../components/DropDownAgendarConsulta"; */
 // import ModalAgendarConsultaSalvar from "../components/ModalAgendarConsultaSalvar";
 // import { AiFillPrinter } from "react-icons/ai";
 import ButtonSalvar from "../components/ButtonSalvarAgendarConsulta";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useApi } from "../hooks/useApi";
+import { AuthContext } from "../contexts/Auth/AuthContext";
 
 const AgendarConsulta = () => {
+  const auth = useContext(AuthContext);
+  const [userid, setUserID] = useState(auth.user?.id);
   const [id, setID] = useState('');
   const [nome, setNome] = useState(''); 
   const [cpf, setCPF] = useState('');
