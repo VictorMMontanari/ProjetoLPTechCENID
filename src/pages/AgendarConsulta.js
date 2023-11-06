@@ -13,7 +13,7 @@ import { AuthContext } from "../contexts/Auth/AuthContext";
 const AgendarConsulta = () => {
   const auth = useContext(AuthContext);
   const [userid, setUserID] = useState(auth.user?.id);
-  const [id, setID] = useState('');
+  const [idpaciente, setPacienteID] = useState('');
   const [nome, setNome] = useState(''); 
   const [cpf, setCPF] = useState('');
   const [sus, setSus] = useState('');
@@ -35,7 +35,7 @@ const AgendarConsulta = () => {
           const response = await tabelaPaciente(searchTerm, ["nome", "cpf"]);
           if (response.length > 0) {
             setSearchResults(response);
-            setID(response[0].id)
+            setPacienteID(response[0].id)
             setNome(response[0].nome);
             setCPF(response[0].cpf);
             setSus(response[0].cartao_sus);
@@ -51,10 +51,19 @@ const AgendarConsulta = () => {
     fetchData();
   }, []);
 
-  const [data,setData] = useState("");
-  const [hora,setHora] = useState("");
-  const [espmed,setEspmed] = useState("");
-  const [obser,setObser] = useState("");
+  const [data, setData] = useState("");
+  const [hora, setHora] = useState("");
+  const [espmed, setEspmed] = useState("");
+  const [obser, setObser] = useState("");
+
+  const handleRegister = async () => {
+    if (data && hora && espmed) {
+      await auth.agendar(idpaciente, userid, data, hora, espmed, obser);
+      window.location.reload();
+    } else {
+      alert('Todos os campos são obrigatórios');
+    }
+  }
 
   return (
     <div className="home">
@@ -165,8 +174,14 @@ const AgendarConsulta = () => {
           </div>
         </form>
         <div className="modal-print">
-          <ButtonSalvar />
-        </div>
+        <ButtonSalvar
+          handleRegister={handleRegister} // Passe a função handleRegister como propriedade
+          data={data}
+          hora={hora}
+          espmed={espmed}
+          searchResults={searchResults}
+        />
+      </div>
       </div>
     </div>
   );
