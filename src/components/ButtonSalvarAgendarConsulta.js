@@ -45,38 +45,26 @@ const closeButtonHoverStyle = {
   },
 };
 
-export default function ButtonSalvar({ handleRegister, data, hora, espmed, searchResults }) {
+export default function ButtonSalvar({ handleRegister, dataconsulta, hora, espmed, searchResults }) {
   const [open, setOpen] = useState(false);
   const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
   let autoCloseTimer;
 
-  useEffect(() => {
-    return () => {
-      clearTimeout(autoCloseTimer);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isRegistrationSuccess) {
-      handleOpen();
-    }
-  }, [isRegistrationSuccess]);
-  
-
   const handleOpen = () => {
     // Verifica se todos os campos necessários estão preenchidos
-    if (data && hora && espmed) {
-      console.log('Agendando consulta...');
-      handleRegister(); // Chama a função handleRegister do componente pai
-      setIsRegistrationSuccess(true); // Defina como verdadeira quando o agendamento for bem-sucedido
-      autoCloseTimer = setTimeout(() => {
-        handleClose();
-      }, autoCloseDelay);
+    if (dataconsulta && hora && espmed) {
+      if (!isRegistrationSuccess) {
+        console.log('Agendando consulta...');
+        handleRegister(); // Chama a função handleRegister do componente pai
+        setIsRegistrationSuccess(true); // Define como verdadeira quando o agendamento for bem-sucedido
+        autoCloseTimer = setTimeout(() => {
+          handleClose();
+        }, autoCloseDelay);
+      }
     } else {
       alert('Todos os campos são obrigatórios');
     }
   };
-  
 
   const handleClose = () => {
     clearTimeout(autoCloseTimer);
@@ -103,30 +91,27 @@ export default function ButtonSalvar({ handleRegister, data, hora, espmed, searc
         </div>
       </Stack>
       <Transition in={isRegistrationSuccess} timeout={animationDuration}>
-  {(state) => (
-    <Modal
-    open={state === "entered"}
-    onClose={handleClose}
-    aria-labelledby="modal-modal-title"
-    aria-describedby="modal-modal-description"
-  >
-    <Box sx={{ ...style, ...transitionStyles[state] }}>
-      <Typography
-        id="modal-modal-title"
-        variant="h6"
-        component="h2"
-        sx={{ textAlign: "center" }}
-      >
-        {"Consulta agendada com sucesso!"}
-      </Typography>
-      <Button onClick={() => window.location.href = `/paciente?cpf=${searchResults[0]?.cpf}`}>Fechar</Button>
-    </Box>
-  </Modal>
-  
-  )}
-</Transition>
-
+        {(state) => (
+          <Modal
+            open={state === "entered"}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={{ ...style, ...transitionStyles[state] }}>
+              <Typography
+                id="modal-modal-title"
+                variant="h6"
+                component="h2"
+                sx={{ textAlign: "center" }}
+              >
+                {"Consulta agendada com sucesso!"}
+              </Typography>
+              <Button onClick={() => window.location.href = `/paciente?cpf=${searchResults[0]?.cpf}`}>Fechar</Button>
+            </Box>
+          </Modal>
+        )}
+      </Transition>
     </div>
   );
 }
-

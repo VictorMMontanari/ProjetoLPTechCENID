@@ -3,6 +3,11 @@ import { useApi } from "../../hooks/useApi";
 import { User, Users, NovoCadastro, AttCadastro } from "../../types/User";
 import { AuthContext } from "./AuthContext";
 
+type Time = {
+    hours: number;
+    minutes: number;
+  };
+
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     const [user, setUser] = useState<User | null>(null);
     const [users, setUsers] = useState<User | null>(null);
@@ -35,6 +40,15 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
     const update = async (id: Int32Array, email: string, password: string, name: string, ra: string, type: string, phone: string, curso: string, cpf: string) => {
         const data = await api.update(id,email, password, name, ra, type, phone, curso, cpf);
+        if (data.users) {
+            setUsers(data.users);
+            return true;
+        }
+        return false;
+    }
+
+    const agendar = async (idpaciente: number, userid: number, dataconsulta: Date, hora: Time, espmed: string, obser: string) => {
+        const data = await api.agendar(idpaciente,userid,dataconsulta,hora,espmed,obser);
         if (data.users) {
             setUsers(data.users);
             return true;
@@ -95,7 +109,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ user, signin, signout, register, registernovo, atualizar, update }}>
+        <AuthContext.Provider value={{ user, signin, signout, register, registernovo, atualizar, update, agendar }}>
             {children}
         </AuthContext.Provider>
     );
