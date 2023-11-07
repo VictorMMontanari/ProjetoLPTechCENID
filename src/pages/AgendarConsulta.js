@@ -51,15 +51,14 @@ const AgendarConsulta = () => {
     fetchData();
   }, []);
 
-  const [data, setData] = useState("");
+  const [dataconsulta, setDataconsulta] = useState("");
   const [hora, setHora] = useState("");
   const [espmed, setEspmed] = useState("");
   const [obser, setObser] = useState("");
 
   const handleRegister = async () => {
-    if (data && hora && espmed) {
-      await auth.agendar(idpaciente, userid, data, hora, espmed, obser);
-      window.location.reload();
+    if (dataconsulta && hora && espmed) {
+      await auth.agendar(idpaciente, userid, dataconsulta, hora, espmed, obser);
     } else {
       alert('Todos os campos são obrigatórios');
     }
@@ -136,8 +135,8 @@ const AgendarConsulta = () => {
                 <p className="p-nome-agendar-consulta">Data:</p>
                 <input type={"date"} 
                 className="data-agendar-consulta" 
-                value={data}
-                onChange={(event) => setData(event.target.value)}></input>
+                value={dataconsulta}
+                onChange={(event) => setDataconsulta(event.target.value)}></input>
               </div>
               <div>
                 <p className="p-nome-agendar-consulta">Horário:</p>
@@ -176,7 +175,7 @@ const AgendarConsulta = () => {
         <div className="modal-print">
         <ButtonSalvar
           handleRegister={handleRegister} // Passe a função handleRegister como propriedade
-          data={data}
+          dataconsulta={dataconsulta}
           hora={hora}
           espmed={espmed}
           searchResults={searchResults}
