@@ -155,7 +155,7 @@ const AgendarConsulta = () => {
                 onChange={(e) => setEspmed(e.target.value)}
               >
                 <option value={""}>Selecione a especialidade:</option>
-                <option value={"Medicina"}>Medicina</option>
+                <option value={"medicina"}>Medicina</option>
                 <option value={"enfermagem"}>Enfermagem</option>
                 <option value={"psicologia"}>Psicologia</option>
                 <option value={"nutricao"}>Nutrição</option>

@@ -17,6 +17,8 @@ import { useEffect, useState } from "react";
 import { useApi } from "../hooks/useApi";
 import {formatarCPFp} from "../components/FormatarCampos"
 import { Link } from "react-router-dom";
+import { format } from 'date-fns';
+
 
 const Paciente = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -46,6 +48,27 @@ const Paciente = () => {
       fetchData();
     }
   }, [tabelaPaciente]);
+
+  const api = useApi();
+
+  const [data, setData] = useState([]);
+
+  const handleAgendar = () => {
+    api
+      .agendamentos()
+      .then((tabelaDataJson) => {
+        setData(tabelaDataJson); // Atribua diretamente os dados ao estado 'data'
+        console.log(tabelaDataJson); // Se você quiser ver os dados no console
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    handleAgendar();
+  }, []);
+
    
 
   return (
@@ -126,92 +149,96 @@ const Paciente = () => {
               <ModalExamesPaciente />
             </th>
           </tr>
-          <tr className="tr-testeP">
-            <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                20/08/2020
-                <IoIosCloseCircle className="icon-check-relatorio-red"/>
-              </a>
-            </td>
-            <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                20/08/2020
-              </a>
-              <HiCheckCircle className="icon-check-relatorio"/>
-            </td>
-            <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                20/08/2020
-              </a>
-              <IoIosCloseCircle className="icon-check-relatorio-red"/>
-            </td>
-            <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                20/08/2020
-              </a>
-              <HiCheckCircle className="icon-check-relatorio"/>
-            </td>
-            <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                20/08/2020
-              </a>
-              <HiCheckCircle className="icon-check-relatorio"/>
-            </td>
-            <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                16/05/2020  
-              </a>
-              <HiCheckCircle className="icon-check-relatorio"/>
-            </td>
-            <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                16/05/2020  
-              </a>
-              <HiCheckCircle className="icon-check-relatorio"/>
-            </td>
-          </tr>
           <tr>
             <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                16/05/2020  
-              </a>
-              <HiCheckCircle className="icon-check-relatorio"/>
+              {Object.values(data).map((user) => (
+                <div key={user.id}>
+                  {user.especialidade_med === 'antropometria' && (
+                    <a href='/consulta' className='caminhoConsulta'>
+                    {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                  </a>
+                  )}
+                </div>
+              ))}
+            </td>
+         
+              {Object.values(data).map((user) => (
+                <tr>
+                  <td className='' key={user.id}>
+                    {user.especialidade_med === 'enfermagem' && (
+                      <a href='/consulta' className='caminhoConsulta'>
+                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                      </a>
+                    )}
+                  </td>
+                </tr>
+              ))}
+
+            {/* <td className='testeP'>
+              {Object.values(data).map((user) => (
+                <div key={user.id}>
+                  {user.especialidade_med === 'enfermagem' && (
+                    <a href='/consulta' className='caminhoConsulta'>
+                       {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                    </a>
+                  )}
+                </div>
+              ))}
+            </td> */}
+            <td className='testeP'>
+              {Object.values(data).map((user) => (
+                <div key={user.id}>
+                  {user.especialidade_med === 'nutricao' && (
+                    <a href='/consulta' className='caminhoConsulta'>
+                    {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                  </a>
+                  )}
+                </div>
+              ))}
             </td>
             <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                16/05/2020  
-              </a>
-              <HiCheckCircle className="icon-check-relatorio"/>
+              {Object.values(data).map((user) => (
+                <div key={user.id}>
+                  {user.especialidade_med === 'educacaoFisica' && (
+                    <a href='/consulta' className='caminhoConsulta'>
+          {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+        </a>
+                  )}
+                </div>
+              ))}
             </td>
             <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                16/05/2020  
-              </a>
-              <HiCheckCircle className="icon-check-relatorio"/>
+              {Object.values(data).map((user) => (
+                <div key={user.id}>
+                  {user.especialidade_med === 'psicologia' && (
+                    <a href='/consulta' className='caminhoConsulta'>
+          {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+        </a>
+                  )}
+                </div>
+              ))}
             </td>
             <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                16/05/2020  
-              </a>
-              <HiCheckCircle className="icon-check-relatorios"/>
+              {Object.values(data).map((user) => (
+                <div key={user.id}>
+                  {user.especialidade_med === 'medicina' && (
+                    <a href='/consulta' className='caminhoConsulta'>
+          {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+        </a>
+                  )}
+                </div>
+              ))}
             </td>
             <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                16/05/2020  
-              </a>
-              <HiCheckCircle className="icon-check-relatorio"/>
-            </td>
-            <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                16/05/2020  
-              </a>
-              <HiCheckCircle className="icon-check-relatorio"/>
-            </td>
-            <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                16/05/2020  
-              </a>
-              <HiCheckCircle className="icon-check-relatorios"/>
+              {Object.values(data).map((user) => (
+                <div key={user.id}>
+                  {user.especialidade_med === 'nt' && (
+                    <a href='/consulta' className='caminhoConsulta'>
+          {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+        </a>
+                  )}
+                </div>
+              ))}
             </td>
           </tr>
         </table>
