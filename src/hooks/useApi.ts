@@ -52,23 +52,28 @@ export const useApi = () => ({
         return response.data;
       },
       
-      agendar: async (
-        idpaciente: number,
-        userid: number,
-        dataconsulta: DateConsulta,
-        hora: Time,
-        espmed: string,
-        obser: string
-      ) => {
-        console.log(espmed);
-        const response = await api.post('/agendar', {
-          idpaciente,
-          userid,
-          dataconsulta,
-          hora,
-          espmed,
-          obser,
-        });
+    agendar: async (
+    idpaciente: number,
+    userid: number,
+    dataconsulta: DateConsulta,
+    hora: Time,
+    espmed: string,
+    obser: string
+    ) => {
+    console.log(espmed);
+    const response = await api.post('/agendar', {
+        idpaciente,
+        userid,
+        dataconsulta,
+        hora,
+        espmed,
+        obser,
+    });
+    return response.data;
+    },
+
+    agendamentos: async () => {
+        const response = await api.get('/agendamentos');
         return response.data;
       },
 
