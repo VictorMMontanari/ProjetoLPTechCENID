@@ -130,9 +130,10 @@ const Paciente = () => {
             <th className='tableTitle'>
               <ModalAntropologiaPaciente />
             </th>
-           <th className='tableTitle'>
-              <ModalEnfPaciente />
-           </th>
+            <th className='tableTitle'>
+              <ModalEnfPaciente data={data}/>
+              
+            </th>
             <th className='tableTitle'>
               <ModalNutriPaciente />
             </th>
@@ -150,30 +151,28 @@ const Paciente = () => {
             </th>
           </tr>
           <tr>
-            <td className='testeP'>
+            <td>
               {Object.values(data).map((user) => (
-                <div key={user.id}>
-                  {user.especialidade_med === 'antropometria' && (
-                    <a href='/consulta' className='caminhoConsulta'>
+              user.especialidade_med === 'antropometria' && (
+                <span className='tr-enf' key={user.id}>
+                  <a href='/consulta' className='caminhoConsulta'>
                     {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
                   </a>
-                  )}
-                </div>
+                </span>
+              )
+            ))}
+            </td>
+            <td>
+              {Object.values(data).map((user) => (
+                user.especialidade_med === 'enfermagem' && (
+                  <span className='tr-enf' key={user.id}>
+                    <a href='/consulta' className='caminhoConsulta'>
+                      {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                    </a>
+                  </span>
+                )
               ))}
             </td>
-         
-              {Object.values(data).map((user) => (
-                <tr>
-                  <td className='' key={user.id}>
-                    {user.especialidade_med === 'enfermagem' && (
-                      <a href='/consulta' className='caminhoConsulta'>
-                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-                      </a>
-                    )}
-                  </td>
-                </tr>
-              ))}
-
             {/* <td className='testeP'>
               {Object.values(data).map((user) => (
                 <div key={user.id}>
@@ -185,59 +184,61 @@ const Paciente = () => {
                 </div>
               ))}
             </td> */}
-            <td className='testeP'>
-              {Object.values(data).map((user) => (
-                <div key={user.id}>
-                  {user.especialidade_med === 'nutricao' && (
+            <td>
+            {Object.values(data).map((user) => (
+                user.especialidade_med === 'nutricao' && (
+                  <span className='tr-enf' key={user.id}>
                     <a href='/consulta' className='caminhoConsulta'>
-                    {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-                  </a>
-                  )}
-                </div>
+                      {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                    </a>
+                  </span>
+                )
               ))}
             </td>
-            <td className='testeP'>
-              {Object.values(data).map((user) => (
-                <div key={user.id}>
-                  {user.especialidade_med === 'educacaoFisica' && (
+            <td>
+            {Object.values(data).map((user) => (
+                user.especialidade_med === 'educacaoFisica' && (
+                  <span className='tr-enf' key={user.id}>
                     <a href='/consulta' className='caminhoConsulta'>
-          {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-        </a>
-                  )}
-                </div>
+                      {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                    </a>
+                  </span>
+                )
               ))}
             </td>
-            <td className='testeP'>
+            <td>
               {Object.values(data).map((user) => (
-                <div key={user.id}>
-                  {user.especialidade_med === 'psicologia' && (
+                user.especialidade_med === 'psicologia' && (
+                  <span className='tr-enf' key={user.id}>
                     <a href='/consulta' className='caminhoConsulta'>
-          {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-        </a>
-                  )}
-                </div>
+                      {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                    </a>
+                  </span>
+                )
               ))}
             </td>
-            <td className='testeP'>
-              {Object.values(data).map((user) => (
-                <div key={user.id}>
-                  {user.especialidade_med === 'medicina' && (
+            <td>
+            {Object.values(data).map((user) => (
+                user.especialidade_med === 'medicina' && (
+                  <span className='tr-enf' key={user.id}>
                     <a href='/consulta' className='caminhoConsulta'>
-          {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-        </a>
-                  )}
-                </div>
+                      {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                    </a>
+                  </span>
+                )
               ))}
+              
             </td>
-            <td className='testeP'>
+            <td>
+              
               {Object.values(data).map((user) => (
-                <div key={user.id}>
-                  {user.especialidade_med === 'nt' && (
+                user.especialidade_med === 'nt' && (
+                  <span className='tr-enf' key={user.id}>
                     <a href='/consulta' className='caminhoConsulta'>
-          {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-        </a>
-                  )}
-                </div>
+                      {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                    </a>
+                  </span>
+                )
               ))}
             </td>
           </tr>
