@@ -3,6 +3,7 @@ import "../styles/Modal.css";
 // import { AiOutlineMedicineBox } from "react-icons/ai";
 import { MdClose } from "react-icons/md";
 import { useApi } from "../hooks/useApi";
+import { format } from 'date-fns';
 
 export default function Modal() {
   const [searchResults, setSearchResults] = useState([]);
@@ -39,6 +40,8 @@ export default function Modal() {
     document.body.classList.remove("active-modal");
   }
 
+
+
   return (
     <>
       <div className="enfPacienteRelatorioConsulta">
@@ -46,6 +49,7 @@ export default function Modal() {
           Enfermagem
         </button>
       </div>
+      
       {modal && (
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
