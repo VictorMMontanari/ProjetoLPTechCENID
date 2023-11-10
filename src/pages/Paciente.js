@@ -23,6 +23,7 @@ import { format } from 'date-fns';
 const Paciente = () => {
   const [searchResults, setSearchResults] = useState([]);
   const { tabelaPaciente } = useApi();
+  const [idpaciente, setPacienteID] = useState('');
 
   const calculateAge = (birthday) => {
     const ageDifferenceMs = Date.now() - new Date(birthday).getTime();
@@ -39,6 +40,7 @@ const Paciente = () => {
       try {
         const response = await tabelaPaciente(searchTerm, ['nome', 'cpf']);
         setSearchResults(response);
+        setPacienteID(response[0].id)
       } catch (error) {
         console.error(error);
       }
@@ -153,25 +155,25 @@ const Paciente = () => {
           <tr>
             <td>
               {Object.values(data).map((user) => (
-              user.especialidade_med === 'antropometria' && (
-                <span className='tr-enf' key={user.id}>
-                  <a href='/consulta' className='caminhoConsulta'>
-                    {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-                  </a>
-                </span>
-              )
-            ))}
+                user.paciente_id === idpaciente && (
+                  user.especialidade_med === 'antropometria' && (
+                    <span className='tr-enf' key={user.id}>
+                      <a href='/consulta' className='caminhoConsulta'>
+                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                      </a>
+                    </span>
+                  ))))}
             </td>
             <td>
               {Object.values(data).map((user) => (
-                user.especialidade_med === 'enfermagem' && (
-                  <span className='tr-enf' key={user.id}>
-                    <a href='/consulta' className='caminhoConsulta'>
-                      {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-                    </a>
-                  </span>
-                )
-              ))}
+                user.paciente_id === idpaciente && (
+                  user.especialidade_med === 'enfermagem' && (
+                    <span className='tr-enf' key={user.id}>
+                      <a href='/consulta' className='caminhoConsulta'>
+                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                      </a>
+                    </span>
+                  ))))}
             </td>
             {/* <td className='testeP'>
               {Object.values(data).map((user) => (
@@ -186,60 +188,59 @@ const Paciente = () => {
             </td> */}
             <td>
             {Object.values(data).map((user) => (
+              user.paciente_id === idpaciente && (
                 user.especialidade_med === 'nutricao' && (
                   <span className='tr-enf' key={user.id}>
                     <a href='/consulta' className='caminhoConsulta'>
                       {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
                     </a>
                   </span>
-                )
-              ))}
+                ))))}
             </td>
             <td>
             {Object.values(data).map((user) => (
+              user.paciente_id === idpaciente && (
                 user.especialidade_med === 'educacaoFisica' && (
                   <span className='tr-enf' key={user.id}>
                     <a href='/consulta' className='caminhoConsulta'>
                       {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
                     </a>
                   </span>
-                )
-              ))}
+                ))))}
             </td>
             <td>
               {Object.values(data).map((user) => (
-                user.especialidade_med === 'psicologia' && (
-                  <span className='tr-enf' key={user.id}>
-                    <a href='/consulta' className='caminhoConsulta'>
-                      {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-                    </a>
-                  </span>
-                )
-              ))}
+                user.paciente_id === idpaciente && (
+                  user.especialidade_med === 'psicologia' && (
+                    <span className='tr-enf' key={user.id}>
+                      <a href='/consulta' className='caminhoConsulta'>
+                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                      </a>
+                    </span>
+                  ))))}
             </td>
             <td>
             {Object.values(data).map((user) => (
+              user.paciente_id === idpaciente && (
                 user.especialidade_med === 'medicina' && (
                   <span className='tr-enf' key={user.id}>
                     <a href='/consulta' className='caminhoConsulta'>
                       {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
                     </a>
                   </span>
-                )
-              ))}
-              
+                ))))}
             </td>
             <td>
               
               {Object.values(data).map((user) => (
-                user.especialidade_med === 'nt' && (
-                  <span className='tr-enf' key={user.id}>
-                    <a href='/consulta' className='caminhoConsulta'>
-                      {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-                    </a>
-                  </span>
-                )
-              ))}
+                user.paciente_id === idpaciente && (
+                  user.especialidade_med === 'nt' && (
+                    <span className='tr-enf' key={user.id}>
+                      <a href='/consulta' className='caminhoConsulta'>
+                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                      </a>
+                    </span>
+                ))))}
             </td>
           </tr>
         </table>
