@@ -336,6 +336,7 @@ const Paciente = () => {
                 )
               ))}
             </td>
+            
             <td>
               {Object.values(data).map((user) => (
                 user.paciente_id === idpaciente && (
