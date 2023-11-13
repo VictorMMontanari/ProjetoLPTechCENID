@@ -15,7 +15,7 @@ import ModalExamesPaciente from "../components/ModalExamesPaciente";
 import ModalAntropologiaPaciente from "../components/ModalAntropologiaPaciente";
 import { useEffect, useState } from "react";
 import { useApi } from "../hooks/useApi";
-import {formatarCPFp} from "../components/FormatarCampos"
+import { formatarCPFp } from "../components/FormatarCampos"
 import { Link } from "react-router-dom";
 import { format } from 'date-fns';
 
@@ -27,7 +27,7 @@ const Paciente = () => {
 
   const calculateAge = (birthday) => {
     const ageDifferenceMs = Date.now() - new Date(birthday).getTime();
-    const ageDate = new Date(ageDifferenceMs); 
+    const ageDate = new Date(ageDifferenceMs);
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
 
@@ -35,7 +35,7 @@ const Paciente = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const cpfParam = urlParams.get("cpf");
     const searchTerm = cpfParam;
-  
+
     const fetchData = async () => {
       try {
         const response = await tabelaPaciente(searchTerm, ['nome', 'cpf']);
@@ -45,7 +45,7 @@ const Paciente = () => {
         console.error(error);
       }
     };
-  
+
     if (searchTerm) {
       fetchData();
     }
@@ -71,13 +71,13 @@ const Paciente = () => {
     handleAgendar();
   }, []);
 
-  
+
 
   function verificarStatusAgendamento(agendamento) {
     const dataAtual = new Date();
     const dataAgendamento = new Date(agendamento.data_agendamento);
     const status = agendamento.status_agendamento;
-  
+
     if (status === 1) {
       return "concluido";
     } else if (status === 0) {
@@ -88,12 +88,12 @@ const Paciente = () => {
       return "status-desconhecido";
     }
   }
-  
+
   function IconeStatusAgendamento({ agendamento }) {
     const status = verificarStatusAgendamento(agendamento);
-  
+
     let className = "icon-check-relatorios";
-  
+
     if (status === "concluido") {
       className = "icon-check-relatorio";
     } else if (status === "em-andamento") {
@@ -101,10 +101,10 @@ const Paciente = () => {
     } else if (status === "fora-do-prazo") {
       className = "icon-check-relatorio-red";
     }
-  
+
     return <HiCheckCircle className={className} />;
   }
-  
+
 
   return (
     <div className='paciente'>
@@ -126,7 +126,7 @@ const Paciente = () => {
             <label className="label-paciente">
               CPF:
             </label>
-            {searchResults.map(result => (<p key={result.id} className="input-CPF-paciente">{formatarCPFp(result.cpf)}</p>))} 
+            {searchResults.map(result => (<p key={result.id} className="input-CPF-paciente">{formatarCPFp(result.cpf)}</p>))}
             <label className="label-paciente">
               NOME:
             </label>
@@ -150,8 +150,8 @@ const Paciente = () => {
               <ModalAntropologiaPaciente />
             </th>
             <th className='tableTitle'>
-              <ModalEnfPaciente data={data}/>
-              
+              <ModalEnfPaciente data={data} />
+
             </th>
             <th className='tableTitle'>
               <ModalNutriPaciente />
@@ -174,193 +174,194 @@ const Paciente = () => {
             <td className='testeP'>
               <a href='/consulta' className='caminhoConsulta'>
                 20/08/2020
-                <IoIosCloseCircle className="icon-check-relatorio-red"/>
+                <IoIosCloseCircle className="icon-check-relatorio-red" />
               </a>
             </td>
             <td className='testeP'>
               <a href='/consulta' className='caminhoConsulta'>
                 20/08/2020
               </a>
-              <HiCheckCircle className="icon-check-relatorio"/>
+              <HiCheckCircle className="icon-check-relatorio" />
             </td>
             <td className='testeP'>
               <a href='/consulta' className='caminhoConsulta'>
                 20/08/2020
               </a>
-              <IoIosCloseCircle className="icon-check-relatorio-red"/>
+              <IoIosCloseCircle className="icon-check-relatorio-red" />
             </td>
             <td className='testeP'>
               <a href='/consulta' className='caminhoConsulta'>
                 20/08/2020
               </a>
-              <HiCheckCircle className="icon-check-relatorios"/>
+              <HiCheckCircle className="icon-check-relatorios" />
             </td>
             <td className='testeP'>
               <a href='/consulta' className='caminhoConsulta'>
                 20/08/2020
               </a>
-              <HiCheckCircle className="icon-check-relatorio"/>
+              <HiCheckCircle className="icon-check-relatorio" />
             </td>
             <td className='testeP'>
               <a href='/consulta' className='caminhoConsulta'>
-                16/05/2020  
+                16/05/2020
               </a>
-              <HiCheckCircle className="icon-check-relatorio"/>
+              <HiCheckCircle className="icon-check-relatorio" />
             </td>
             <td className='testeP'>
               <a href='/consulta' className='caminhoConsulta'>
-                16/05/2020  
+                16/05/2020
               </a>
-              <HiCheckCircle className="icon-check-relatorio"/>
+              <HiCheckCircle className="icon-check-relatorio" />
             </td>
           </tr>
 
           <tr>
-          <td>
-  {Object.values(data).map((user) => (
-    user.paciente_id === idpaciente && (
-      user.especialidade_med === 'antroprometria' && (
-        <span className='tr-enf' key={user.id}>
-          <a href='/consulta' className='caminhoConsulta'>
-            {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-          </a>
-          {user.status_agendamento !== undefined ? (
-            <IconeStatusAgendamento agendamento={user} />
-          ) : (
-            <div className="icon-check-relatorio-default">
-              {/* Defina um estilo padrão para o ícone se o status for indefinido */}
-            </div>
-          )}
-        </span>
-      )
-    )
-  ))}
-</td>
             <td>
-  {Object.values(data).map((user) => (
-    user.paciente_id === idpaciente && (
-      user.especialidade_med === 'enfermagem' && (
-        <span className='tr-enf' key={user.id}>
-          <a href='/consulta' className='caminhoConsulta'>
-            {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-          </a>
-          {user.status_agendamento !== undefined ? (
-            <IconeStatusAgendamento agendamento={user} />
-          ) : (
-            <div className="icon-check-relatorio-default">
-              {/* Defina um estilo padrão para o ícone se o status for indefinido */}
-            </div>
-          )}
-        </span>
-      )
-    )
-  ))}
-</td>
-<td>
-  {Object.values(data).map((user) => (
-    user.paciente_id === idpaciente && (
-      user.especialidade_med === 'nutricao' && (
-        <span className='tr-enf' key={user.id}>
-          <a href='/consulta' className='caminhoConsulta'>
-            {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-          </a>
-          {user.status_agendamento !== undefined ? (
-            <IconeStatusAgendamento agendamento={user} />
-          ) : (
-            <div className="icon-check-relatorio-default">
-              {/* Defina um estilo padrão para o ícone se o status for indefinido */}
-            </div>
-          )}
-        </span>
-      )
-    )
-  ))}
-</td>
-<td>
-  {Object.values(data).map((user) => (
-    user.paciente_id === idpaciente && (
-      user.especialidade_med === 'educacaoFisica' && (
-        <span className='tr-enf' key={user.id}>
-          <a href='/consulta' className='caminhoConsulta'>
-            {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-          </a>
-          {user.status_agendamento !== undefined ? (
-            <IconeStatusAgendamento agendamento={user} />
-          ) : (
-            <div className="icon-check-relatorio-default">
-              {/* Defina um estilo padrão para o ícone se o status for indefinido */}
-            </div>
-          )}
-        </span>
-      )
-    )
-  ))}
-</td>
-<td>
-  {Object.values(data).map((user) => (
-    user.paciente_id === idpaciente && (
-      user.especialidade_med === 'psicologia' && (
-        <span className='tr-enf' key={user.id}>
-          <a href='/consulta' className='caminhoConsulta'>
-            {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-          </a>
-          {user.status_agendamento !== undefined ? (
-            <IconeStatusAgendamento agendamento={user} />
-          ) : (
-            <div className="icon-check-relatorio-default">
-              {/* Defina um estilo padrão para o ícone se o status for indefinido */}
-            </div>
-          )}
-        </span>
-      )
-    )
-  ))}
-</td>
-<td>
-  {Object.values(data).map((user) => (
-    user.paciente_id === idpaciente && (
-      user.especialidade_med === 'medicina' && (
-        <span className='tr-enf' key={user.id}>
-          <a href='/consulta' className='caminhoConsulta'>
-            {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-          </a>
-          {user.status_agendamento !== undefined ? (
-            <IconeStatusAgendamento agendamento={user} />
-          ) : (
-            <div className="icon-check-relatorio-default">
-              {/* Defina um estilo padrão para o ícone se o status for indefinido */}
-            </div>
-          )}
-        </span>
-      )
-    )
-  ))}
-</td>
-<td>
-  {Object.values(data).map((user) => (
-    user.paciente_id === idpaciente && (
-      user.especialidade_med === 'nt' && (
-        <span className='tr-enf' key={user.id}>
-          <a href='/consulta' className='caminhoConsulta'>
-            {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-          </a>
-          {user.status_agendamento !== undefined ? (
-            <IconeStatusAgendamento agendamento={user} />
-          ) : (
-            <div className="icon-check-relatorio-default">
-              {/* Defina um estilo padrão para o ícone se o status for indefinido */}
-            </div>
-          )}
-        </span>
-      )
-    )
-  ))}
-</td>
+              {Object.values(data).map((user) => (
+                user.paciente_id === idpaciente && (
+                  user.especialidade_med === 'antroprometria' && (
+                    <span className='tr-enf' key={user.id}>
+                      <a href='/consulta' className='caminhoConsulta'>
+                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                      </a>
+                      {user.status_agendamento !== undefined ? (
+                        <IconeStatusAgendamento agendamento={user} />
+                      ) : (
+                        <div className="icon-check-relatorio-default">
+                          {/* Defina um estilo padrão para o ícone se o status for indefinido */}
+                        </div>
+                      )}
+                    </span>
+                  )
+                )
+              ))}
+            </td>
+            <td>
+              {Object.values(data).map((user) => (
+                user.paciente_id === idpaciente && (
+                  user.especialidade_med === 'enfermagem' && (
+                    <span className='tr-enf' key={user.id}>
+                      <a href='/consulta' className='caminhoConsulta'>
+                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                      </a>
+                      {user.status_agendamento !== undefined ? (
+                        <IconeStatusAgendamento agendamento={user} />
+                      ) : (
+                        <div className="icon-check-relatorio-default">
+                          {/* Defina um estilo padrão para o ícone se o status for indefinido */}
+                        </div>
+                      )}
+                    </span>
+                  )
+                )
+              ))}
+            </td>
+            <td>
+              {Object.values(data).map((user) => (
+                user.paciente_id === idpaciente && (
+                  user.especialidade_med === 'nutricao' && (
+                    <span className='tr-enf' key={user.id}>
+                      <a href='/consulta' className='caminhoConsulta'>
+                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                      </a>
+                      {user.status_agendamento !== undefined ? (
+                        <IconeStatusAgendamento agendamento={user} />
+                      ) : (
+                        <div className="icon-check-relatorio-default">
+                          {/* Defina um estilo padrão para o ícone se o status for indefinido */}
+                        </div>
+                      )}
+                    </span>
+                  )
+                )
+              ))}
+            </td>
+            <td>
+              {Object.values(data).map((user) => (
+                user.paciente_id === idpaciente && (
+                  user.especialidade_med === 'educacaoFisica' && (
+                    <span className='tr-enf' key={user.id}>
+                      <a href='/consulta' className='caminhoConsulta'>
+                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                      </a>
+                      {user.status_agendamento !== undefined ? (
+                        <IconeStatusAgendamento agendamento={user} />
+                      ) : (
+                        <div className="icon-check-relatorio-default">
+                          {/* Defina um estilo padrão para o ícone se o status for indefinido */}
+                        </div>
+                      )}
+                    </span>
+                  )
+                )
+              ))}
+            </td>
+            <td>
+              {Object.values(data).map((user) => (
+                user.paciente_id === idpaciente && (
+                  user.especialidade_med === 'psicologia' && (
+                    <span className='tr-enf' key={user.id}>
+                      <a href='/consulta' className='caminhoConsulta'>
+                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                      </a>
+                      {user.status_agendamento !== undefined ? (
+                        <IconeStatusAgendamento agendamento={user} />
+                      ) : (
+                        <div className="icon-check-relatorio-default">
+                          {/* Defina um estilo padrão para o ícone se o status for indefinido */}
+                        </div>
+                      )}
+                    </span>
+                  )
+                )
+              ))}
+            </td>
+            <td>
+              {Object.values(data).map((user) => (
+                user.paciente_id === idpaciente && (
+                  user.especialidade_med === 'medicina' && (
+                    <span className='tr-enf' key={user.id}>
+                      <a href='/consulta' className='caminhoConsulta'>
+                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                      </a>
+                      {user.status_agendamento !== undefined ? (
+                        <IconeStatusAgendamento agendamento={user} />
+                      ) : (
+                        <div className="icon-check-relatorio-default">
+                          {/* Defina um estilo padrão para o ícone se o status for indefinido */}
+                        </div>
+                      )}
+                    </span>
+                  )
+                )
+              ))}
+            </td>
+
+            <td>
+              {Object.values(data).map((user) => (
+                user.paciente_id === idpaciente && (
+                  user.especialidade_med === 'nt' && (
+                    <span className='tr-enf' key={user.id}>
+                      <a href='/consulta' className='caminhoConsulta'>
+                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+                      </a>
+                      {user.status_agendamento !== undefined ? (
+                        <IconeStatusAgendamento agendamento={user} />
+                      ) : (
+                        <div className="icon-check-relatorio-default">
+                          {/* Defina um estilo padrão para o ícone se o status for indefinido */}
+                        </div>
+                      )}
+                    </span>
+                  )
+                )
+              ))}
+            </td>
           </tr>
         </table>
       </div>
       <a href="/anexarexame">
-        <MdOutlineAttachment title="Anexar Exame" className="iconAttach"/>
+        <MdOutlineAttachment title="Anexar Exame" className="iconAttach" />
       </a>
     </div>
   )
