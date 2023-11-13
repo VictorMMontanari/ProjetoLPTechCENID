@@ -55,10 +55,11 @@ const AgendarConsulta = () => {
   const [hora, setHora] = useState("");
   const [espmed, setEspmed] = useState("");
   const [obser, setObser] = useState("");
+  const [status_agendamento, setStatus_agendamento] = useState("0");
 
   const handleRegister = async () => {
     if (dataconsulta && hora && espmed) {
-      await auth.agendar(idpaciente, userid, dataconsulta, hora, espmed, obser);
+      await auth.agendar(idpaciente, userid, dataconsulta, hora, espmed, obser, status_agendamento);
     } else {
       alert('Todos os campos são obrigatórios');
     }

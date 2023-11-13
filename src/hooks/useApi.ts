@@ -58,7 +58,8 @@ export const useApi = () => ({
     dataconsulta: DateConsulta,
     hora: Time,
     espmed: string,
-    obser: string
+    obser: string,
+    status_agendamento: string
     ) => {
     console.log(espmed);
     const response = await api.post('/agendar', {
@@ -67,6 +68,7 @@ export const useApi = () => ({
         dataconsulta,
         hora,
         espmed,
+        status_agendamento,
         obser,
     });
     return response.data;

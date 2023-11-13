@@ -47,8 +47,8 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
         return false;
     }
 
-    const agendar = async (idpaciente: number, userid: number, dataconsulta: Date, hora: Time, espmed: string, obser: string) => {
-        const data = await api.agendar(idpaciente,userid,dataconsulta,hora,espmed,obser);
+    const agendar = async (idpaciente: number, userid: number, dataconsulta: Date, hora: Time, espmed: string, obser: string, status_agendamento: string) => {
+        const data = await api.agendar(idpaciente,userid,dataconsulta,hora,espmed,obser,status_agendamento);
         if (data.users) {
             setUsers(data.users);
             return true;
