@@ -19,7 +19,7 @@ export type AuthContextType = {
         telefone_responsavel: string, ocupacao_responsavel: string, data_nascimento_responsavel: Date, anexar: Blob, auxilio: string, outros_auxilios: string, possui_celular_com_acesso_a_internet: string, idLogin:Number) => Promise<boolean>;
     register: (email: string, password: string, name: string, ra: string, type: string, phone: string, curso: string, cpf: string) => Promise<boolean>;
     update: (id: Int32Array, email: string, password: string, name: string, ra: string, type: string, phone: string, curso: string, cpf: string) => Promise<boolean>;
-    agendar: (idpaciente: number, userid: number, dataconsulta: Date, hora: Time, espmed: string, obser: string) => Promise<boolean>;
+    agendar: (idpaciente: number, userid: number, dataconsulta: Date, hora: Time, espmed: string, obser: string, status_agendamento: string) => Promise<boolean>;
     signin: (email: string, password: string) => Promise<boolean>;
     signout: () => void;
 }

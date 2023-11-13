@@ -71,7 +71,40 @@ const Paciente = () => {
     handleAgendar();
   }, []);
 
-   
+  
+
+  function verificarStatusAgendamento(agendamento) {
+    const dataAtual = new Date();
+    const dataAgendamento = new Date(agendamento.data_agendamento);
+    const status = agendamento.status_agendamento;
+  
+    if (status === 1) {
+      return "concluido";
+    } else if (status === 0) {
+      return "em-andamento";
+    } else if (dataAtual > dataAgendamento) {
+      return "fora-do-prazo";
+    } else {
+      return "status-desconhecido";
+    }
+  }
+  
+  function IconeStatusAgendamento({ agendamento }) {
+    const status = verificarStatusAgendamento(agendamento);
+  
+    let className = "icon-check-relatorios";
+  
+    if (status === "concluido") {
+      className = "icon-check-relatorio";
+    } else if (status === "em-andamento") {
+      className = "icon-check-relatorios";
+    } else if (status === "fora-do-prazo") {
+      className = "icon-check-relatorio-red";
+    }
+  
+    return <HiCheckCircle className={className} />;
+  }
+  
 
   return (
     <div className='paciente'>
@@ -107,22 +140,6 @@ const Paciente = () => {
             </label>
             {searchResults.map(result => (<p key={result.id} className="input-idade-paciente">{calculateAge(result.data_nascimento)}</p>))}
           </form>
-          {/* <div className="cpf">
-            <h4 className="infos2">CPF:</h4>
-            <input className="input1" name="cpfPaciente"></input>
-          </div>
-          <div className="nomePaciente">
-            <h4 className="infos2">Nome do Paciente:</h4>
-            <input className="input2" name="nomePaciente"></input>
-          </div>
-          <div className="cartaoSUS">
-            <h4 className="infos2">Cartão SUS:</h4>
-            <input className="input1" name="cartaoSUS"></input>
-          </div>
-          <div className="dataNasc">
-            <h4 className="infos2">Idade:</h4>
-            <input className="input1" name="dataNascimentoPaciente"></input>
-          </div> */}
         </div>
         <div className="dadosPaciente">
           <h2>RELATÓRIO DE CONSULTAS</h2>
@@ -152,96 +169,193 @@ const Paciente = () => {
               <ModalExamesPaciente />
             </th>
           </tr>
+
+          <tr className="tr-testeP">
+            <td className='testeP'>
+              <a href='/consulta' className='caminhoConsulta'>
+                20/08/2020
+                <IoIosCloseCircle className="icon-check-relatorio-red"/>
+              </a>
+            </td>
+            <td className='testeP'>
+              <a href='/consulta' className='caminhoConsulta'>
+                20/08/2020
+              </a>
+              <HiCheckCircle className="icon-check-relatorio"/>
+            </td>
+            <td className='testeP'>
+              <a href='/consulta' className='caminhoConsulta'>
+                20/08/2020
+              </a>
+              <IoIosCloseCircle className="icon-check-relatorio-red"/>
+            </td>
+            <td className='testeP'>
+              <a href='/consulta' className='caminhoConsulta'>
+                20/08/2020
+              </a>
+              <HiCheckCircle className="icon-check-relatorios"/>
+            </td>
+            <td className='testeP'>
+              <a href='/consulta' className='caminhoConsulta'>
+                20/08/2020
+              </a>
+              <HiCheckCircle className="icon-check-relatorio"/>
+            </td>
+            <td className='testeP'>
+              <a href='/consulta' className='caminhoConsulta'>
+                16/05/2020  
+              </a>
+              <HiCheckCircle className="icon-check-relatorio"/>
+            </td>
+            <td className='testeP'>
+              <a href='/consulta' className='caminhoConsulta'>
+                16/05/2020  
+              </a>
+              <HiCheckCircle className="icon-check-relatorio"/>
+            </td>
+          </tr>
+
           <tr>
+          <td>
+  {Object.values(data).map((user) => (
+    user.paciente_id === idpaciente && (
+      user.especialidade_med === 'antroprometria' && (
+        <span className='tr-enf' key={user.id}>
+          <a href='/consulta' className='caminhoConsulta'>
+            {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+          </a>
+          {user.status_agendamento !== undefined ? (
+            <IconeStatusAgendamento agendamento={user} />
+          ) : (
+            <div className="icon-check-relatorio-default">
+              {/* Defina um estilo padrão para o ícone se o status for indefinido */}
+            </div>
+          )}
+        </span>
+      )
+    )
+  ))}
+</td>
             <td>
-              {Object.values(data).map((user) => (
-                user.paciente_id === idpaciente && (
-                  user.especialidade_med === 'antropometria' && (
-                    <span className='tr-enf' key={user.id}>
-                      <a href='/consulta' className='caminhoConsulta'>
-                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-                      </a>
-                    </span>
-                  ))))}
-            </td>
-            <td>
-              {Object.values(data).map((user) => (
-                user.paciente_id === idpaciente && (
-                  user.especialidade_med === 'enfermagem' && (
-                    <span className='tr-enf' key={user.id}>
-                      <a href='/consulta' className='caminhoConsulta'>
-                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-                      </a>
-                    </span>
-                  ))))}
-            </td>
-            {/* <td className='testeP'>
-              {Object.values(data).map((user) => (
-                <div key={user.id}>
-                  {user.especialidade_med === 'enfermagem' && (
-                    <a href='/consulta' className='caminhoConsulta'>
-                       {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-                    </a>
-                  )}
-                </div>
-              ))}
-            </td> */}
-            <td>
-            {Object.values(data).map((user) => (
-              user.paciente_id === idpaciente && (
-                user.especialidade_med === 'nutricao' && (
-                  <span className='tr-enf' key={user.id}>
-                    <a href='/consulta' className='caminhoConsulta'>
-                      {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-                    </a>
-                  </span>
-                ))))}
-            </td>
-            <td>
-            {Object.values(data).map((user) => (
-              user.paciente_id === idpaciente && (
-                user.especialidade_med === 'educacaoFisica' && (
-                  <span className='tr-enf' key={user.id}>
-                    <a href='/consulta' className='caminhoConsulta'>
-                      {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-                    </a>
-                  </span>
-                ))))}
-            </td>
-            <td>
-              {Object.values(data).map((user) => (
-                user.paciente_id === idpaciente && (
-                  user.especialidade_med === 'psicologia' && (
-                    <span className='tr-enf' key={user.id}>
-                      <a href='/consulta' className='caminhoConsulta'>
-                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-                      </a>
-                    </span>
-                  ))))}
-            </td>
-            <td>
-            {Object.values(data).map((user) => (
-              user.paciente_id === idpaciente && (
-                user.especialidade_med === 'medicina' && (
-                  <span className='tr-enf' key={user.id}>
-                    <a href='/consulta' className='caminhoConsulta'>
-                      {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-                    </a>
-                  </span>
-                ))))}
-            </td>
-            <td>
-              
-              {Object.values(data).map((user) => (
-                user.paciente_id === idpaciente && (
-                  user.especialidade_med === 'nt' && (
-                    <span className='tr-enf' key={user.id}>
-                      <a href='/consulta' className='caminhoConsulta'>
-                        {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
-                      </a>
-                    </span>
-                ))))}
-            </td>
+  {Object.values(data).map((user) => (
+    user.paciente_id === idpaciente && (
+      user.especialidade_med === 'enfermagem' && (
+        <span className='tr-enf' key={user.id}>
+          <a href='/consulta' className='caminhoConsulta'>
+            {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+          </a>
+          {user.status_agendamento !== undefined ? (
+            <IconeStatusAgendamento agendamento={user} />
+          ) : (
+            <div className="icon-check-relatorio-default">
+              {/* Defina um estilo padrão para o ícone se o status for indefinido */}
+            </div>
+          )}
+        </span>
+      )
+    )
+  ))}
+</td>
+<td>
+  {Object.values(data).map((user) => (
+    user.paciente_id === idpaciente && (
+      user.especialidade_med === 'nutricao' && (
+        <span className='tr-enf' key={user.id}>
+          <a href='/consulta' className='caminhoConsulta'>
+            {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+          </a>
+          {user.status_agendamento !== undefined ? (
+            <IconeStatusAgendamento agendamento={user} />
+          ) : (
+            <div className="icon-check-relatorio-default">
+              {/* Defina um estilo padrão para o ícone se o status for indefinido */}
+            </div>
+          )}
+        </span>
+      )
+    )
+  ))}
+</td>
+<td>
+  {Object.values(data).map((user) => (
+    user.paciente_id === idpaciente && (
+      user.especialidade_med === 'educacaoFisica' && (
+        <span className='tr-enf' key={user.id}>
+          <a href='/consulta' className='caminhoConsulta'>
+            {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+          </a>
+          {user.status_agendamento !== undefined ? (
+            <IconeStatusAgendamento agendamento={user} />
+          ) : (
+            <div className="icon-check-relatorio-default">
+              {/* Defina um estilo padrão para o ícone se o status for indefinido */}
+            </div>
+          )}
+        </span>
+      )
+    )
+  ))}
+</td>
+<td>
+  {Object.values(data).map((user) => (
+    user.paciente_id === idpaciente && (
+      user.especialidade_med === 'psicologia' && (
+        <span className='tr-enf' key={user.id}>
+          <a href='/consulta' className='caminhoConsulta'>
+            {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+          </a>
+          {user.status_agendamento !== undefined ? (
+            <IconeStatusAgendamento agendamento={user} />
+          ) : (
+            <div className="icon-check-relatorio-default">
+              {/* Defina um estilo padrão para o ícone se o status for indefinido */}
+            </div>
+          )}
+        </span>
+      )
+    )
+  ))}
+</td>
+<td>
+  {Object.values(data).map((user) => (
+    user.paciente_id === idpaciente && (
+      user.especialidade_med === 'medicina' && (
+        <span className='tr-enf' key={user.id}>
+          <a href='/consulta' className='caminhoConsulta'>
+            {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+          </a>
+          {user.status_agendamento !== undefined ? (
+            <IconeStatusAgendamento agendamento={user} />
+          ) : (
+            <div className="icon-check-relatorio-default">
+              {/* Defina um estilo padrão para o ícone se o status for indefinido */}
+            </div>
+          )}
+        </span>
+      )
+    )
+  ))}
+</td>
+<td>
+  {Object.values(data).map((user) => (
+    user.paciente_id === idpaciente && (
+      user.especialidade_med === 'nt' && (
+        <span className='tr-enf' key={user.id}>
+          <a href='/consulta' className='caminhoConsulta'>
+            {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
+          </a>
+          {user.status_agendamento !== undefined ? (
+            <IconeStatusAgendamento agendamento={user} />
+          ) : (
+            <div className="icon-check-relatorio-default">
+              {/* Defina um estilo padrão para o ícone se o status for indefinido */}
+            </div>
+          )}
+        </span>
+      )
+    )
+  ))}
+</td>
           </tr>
         </table>
       </div>
