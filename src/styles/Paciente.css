@@ -2,6 +2,26 @@
     box-sizing: 0;
 }
 
+.iconred {
+    color: red;
+}
+
+.iconyellow {
+    color: rgb(211, 211, 4);
+}
+
+.icongreen {
+    color: green;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    flex-direction: column;
+    padding: 0px 0px 0px 1rem;
+}
+
 .seta {
     font-size: 25px;
     margin-left: 16px;

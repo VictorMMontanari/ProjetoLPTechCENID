@@ -6,6 +6,7 @@ import { FaEye } from "react-icons/fa";
 import Navbar from '../components/Navbar';
 import { HiCheckCircle } from "react-icons/hi";
 import { IoIosCloseCircle } from "react-icons/io";
+import { GiPlainCircle } from "react-icons/gi";
 import ModalEnfPaciente from "../components/ModalEnfPaciente";
 import ModalNutriPaciente from "../components/ModalNutriPaciente";
 import ModalEdFisicaPaciente from "../components/ModalEdFisicaPaciente";
@@ -91,18 +92,20 @@ const Paciente = () => {
 
   function IconeStatusAgendamento({ agendamento }) {
     const status = verificarStatusAgendamento(agendamento);
-
-    let className = "icon-check-relatorios";
-
+  
+    let className = "iconyellow";
+  
     if (status === "concluido") {
-      className = "icon-check-relatorio";
+      className = "icongreen";
+      return <GiPlainCircle className={className} />;
     } else if (status === "em-andamento") {
-      className = "icon-check-relatorios";
+      className = "iconyellow";
+      return <GiPlainCircle className={className} />;
     } else if (status === "fora-do-prazo") {
-      className = "icon-check-relatorio-red";
+      className = "iconred";
+      return <GiPlainCircle className={className} />;
     }
-
-    return <HiCheckCircle className={className} />;
+    return <GiPlainCircle className={className} />;
   }
 
 
@@ -169,59 +172,13 @@ const Paciente = () => {
               <ModalExamesPaciente />
             </th>
           </tr>
-
-          <tr className="tr-testeP">
-            <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                20/08/2020
-                <IoIosCloseCircle className="icon-check-relatorio-red" />
-              </a>
-            </td>
-            <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                20/08/2020
-              </a>
-              <HiCheckCircle className="icon-check-relatorio" />
-            </td>
-            <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                20/08/2020
-              </a>
-              <IoIosCloseCircle className="icon-check-relatorio-red" />
-            </td>
-            <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                20/08/2020
-              </a>
-              <HiCheckCircle className="icon-check-relatorios" />
-            </td>
-            <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                20/08/2020
-              </a>
-              <HiCheckCircle className="icon-check-relatorio" />
-            </td>
-            <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                16/05/2020
-              </a>
-              <HiCheckCircle className="icon-check-relatorio" />
-            </td>
-            <td className='testeP'>
-              <a href='/consulta' className='caminhoConsulta'>
-                16/05/2020
-              </a>
-              <HiCheckCircle className="icon-check-relatorio" />
-            </td>
-          </tr>
-
           <tr>
             <td>
               {Object.values(data).map((user) => (
                 user.paciente_id === idpaciente && (
                   user.especialidade_med === 'antroprometria' && (
                     <span className='tr-enf' key={user.id}>
-                      <a href='/consulta' className='caminhoConsulta'>
+                      <a href={`/consulta?cpf=${user.id}`} className='caminhoConsulta'>
                         {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
                       </a>
                       {user.status_agendamento !== undefined ? (
@@ -241,11 +198,13 @@ const Paciente = () => {
                 user.paciente_id === idpaciente && (
                   user.especialidade_med === 'enfermagem' && (
                     <span className='tr-enf' key={user.id}>
-                      <a href='/consulta' className='caminhoConsulta'>
+                      <a href={`/consulta?id=${user.id}`} className='caminhoConsulta'>
                         {format(new Date(user.data_agendamento), 'dd/MM/yyyy')}
                       </a>
                       {user.status_agendamento !== undefined ? (
-                        <IconeStatusAgendamento agendamento={user} />
+                        <div className="icon">
+                          <IconeStatusAgendamento agendamento={user} />
+                        </div>
                       ) : (
                         <div className="icon-check-relatorio-default">
                           {/* Defina um estilo padrão para o ícone se o status for indefinido */}
