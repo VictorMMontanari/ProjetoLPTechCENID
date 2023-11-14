@@ -33,6 +33,7 @@ import BancoExames from './pages/BancoExames';
 import AgendarConsulta from './pages/AgendarConsulta';
 import CollapseProcessos from './components/CollapseProcessos';
 import AlteraçãoEstagiario from './components/AlteraçãoEstagiario';
+import Consulta from './pages/Consulta';
 
 function App() {
     return (
@@ -68,6 +69,7 @@ function App() {
             <Route path="/receitainsulinarapida" element={<RequireAuth><ReceitaInsulinaRapida/></RequireAuth>} />
             <Route path="/bancoexames" element={<RequireAuth><BancoExames/></RequireAuth>} />
             <Route path="/agendarconsulta" element={<RequireAuth><AgendarConsulta/></RequireAuth>} />
+            <Route path="/consulta" element={<RequireAuth><Consulta/></RequireAuth>} />
             <Route path="/collapseprocessos" element={<RequireAuth><CollapseProcessos/></RequireAuth>} />
             <Route path="/alteracaoestagiario" element={<RequireAuth><AlteraçãoEstagiario/></RequireAuth>} />
         </Routes>

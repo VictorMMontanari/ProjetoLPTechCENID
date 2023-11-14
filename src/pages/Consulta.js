@@ -2,9 +2,6 @@ import React from "react";
 import "../styles/AgendarConsulta.css";
 import Navbar from "../components/Navbar";
 import { HiArrowNarrowLeft } from "react-icons/hi";
-/* import DropDownAgendarConsulta from "../components/DropDownAgendarConsulta"; */
-// import ModalAgendarConsultaSalvar from "../components/ModalAgendarConsultaSalvar";
-// import { AiFillPrinter } from "react-icons/ai";
 import ButtonSalvar from "../components/ButtonSalvarAgendarConsulta";
 import { useState, useEffect, useContext } from "react";
 import { useApi } from "../hooks/useApi";
@@ -32,18 +29,15 @@ const AgendarConsulta = () => {
   
         if (idParam) {
           const response = await agendamentos();
+          const idParamNumber = parseInt(idParam, 10);
+          const filteredResults = response.filter(item => item.id === idParamNumber);
   
-          // Log the entire response to inspect its structure
-          console.log("Full Response:", response);
-  
-          // Assuming the data is directly in the response.data
-          const responseData = response.data; // Adjust this based on the actual structure
-  
-          // Check if responseData is defined and contains the necessary information
-          if (responseData && responseData.length > 0) {
-            setSearchResults(responseData);
-            console.log(responseData);
-            // ... (the rest of your code)
+          if (filteredResults.length > 0) {
+            setSearchResults(filteredResults);
+            console.log(filteredResults)
+            // Restante do seu código...
+          } else {
+            console.log("Nenhum resultado encontrado para o ID fornecido.");
           }
         }
       } catch (error) {
@@ -52,7 +46,7 @@ const AgendarConsulta = () => {
     };
   
     fetchData();
-  }, []);
+  }, []); 
   
 
   const [dataconsulta, setDataconsulta] = useState("");
